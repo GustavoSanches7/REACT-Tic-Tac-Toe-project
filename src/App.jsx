@@ -35,7 +35,7 @@ function App() {
   let gameBoard = [...initialGameBoard.map(array => [...array])];
 
   for (const turn of gameTurns) {
-    const { square, player } = turn;
+    const { square, player } = turn;''
     const { row, col } = square;
 
     gameBoard[row][col] = player;
