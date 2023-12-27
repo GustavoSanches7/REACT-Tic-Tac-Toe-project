@@ -39,4 +39,12 @@ export const WINNING_COMBINATIONS = [
     { row: 1, column: 1 },
     { row: 2, column: 0 },
   ],
-];
+]; 
+
+export const SECRET_ENDING = [
+  [
+    { row: 0, column: 0 },
+    { row: 1, column: 1 },
+    { row: 2, column: 1 },
+  ]
+]

@@ -4,8 +4,9 @@ import Player from "./components/Player"
 import GameBoard from "./components/GameBoard"
 import Log from "./components/Log";
 import GameOver from "./components/GameOver";
+import SecretEnding from "./components/SecretEnding"
 
-import { WINNING_COMBINATIONS } from './winning-combinations';
+import { WINNING_COMBINATIONS, SECRET_ENDING } from './winning-combinations'; 
 
 const initialGameBoard = [
   [null, null, null],
@@ -56,6 +57,19 @@ function App() {
 
   }
 
+  let secretWinner; 
+  for (const combination of SECRET_ENDING) {
+    const firstSquareSymbol = gameBoard[combination[0].row][combination[0].column];
+    const secondSquareSymbol = gameBoard[combination[1].row][combination[1].column];
+    const thirdSquareSymbol = gameBoard[combination[2].row][combination[2].column];
+
+    if (firstSquareSymbol
+      && firstSquareSymbol === secondSquareSymbol
+      && firstSquareSymbol === thirdSquareSymbol) {
+      secretWinner = players[firstSquareSymbol];
+    }
+  }
+
   const hasDraw = gameTurns.length === 9 && !winner;
 
   function handleSelectSquare(rowIndex, colIndex) {
@@ -93,6 +107,7 @@ function App() {
           <Player initialName='Player 2' symbol='O' isActive={activePlayer === 'O'} onChangeName={handlePlayerNameChange} />
         </ol>
         {(winner || hasDraw) && <GameOver winner={winner} onRestart={handleRestart} />}
+        {(secretWinner || hasDraw) && <SecretEnding secretWinner={secretWinner} onRestart={handleRestart} />}
         <GameBoard onSelectSquare={handleSelectSquare}
           board={gameBoard}
         />
